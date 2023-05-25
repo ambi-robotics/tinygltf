@@ -1,3 +1,5 @@
+> Diverges from upstream v2.8.0
+
 # Header only C++ tiny glTF library(loader/saver).
 
 `TinyGLTF` is a header only C++11 glTF 2.0 https://github.com/KhronosGroup/glTF library.
