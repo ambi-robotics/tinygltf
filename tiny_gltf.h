@@ -619,7 +619,7 @@ struct Skin {
 
 using defined_flags_t = unsigned int;  // >= 16 bits
 enum class SamplerDefinedFlags : defined_flags_t {
-  kNone   = 0,
+  kNone      = 0,
   kMinFilter = 1 << 0,
   kMagFilter = 1 << 1,
   kWrapS     = 1 << 2,
@@ -652,7 +652,9 @@ struct Sampler {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(SamplerDefinedFlags::kNone)};
+  defined_flags_t defined_flags{
+    static_cast<defined_flags_t>(SamplerDefinedFlags::kNone)
+  };
 
   Sampler()
       : minFilter(-1),
@@ -724,7 +726,7 @@ struct Texture {
 };
 
 enum class TextureInfoDefinedFlags : defined_flags_t {
-  kNone  = 0,
+  kNone     = 0,
   kTexCoord = 1 << 0
 };
 
@@ -740,7 +742,9 @@ struct TextureInfo {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(TextureInfoDefinedFlags::kNone)};
+  defined_flags_t defined_flags{
+    static_cast<defined_flags_t>(TextureInfoDefinedFlags::kNone)
+  };
 
   TextureInfo()
       : index(-1),
@@ -751,7 +755,7 @@ struct TextureInfo {
 };
 
 enum class NormalTextureInfoDefinedFlags : defined_flags_t {
-  kNone  = 0,
+  kNone     = 0,
   kTexCoord = 1 << 0,
   kScale    = 1 << 1
 };
@@ -770,7 +774,9 @@ struct NormalTextureInfo {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(NormalTextureInfoDefinedFlags::kNone)};
+  defined_flags_t defined_flags{
+    static_cast<defined_flags_t>(NormalTextureInfoDefinedFlags::kNone)
+  };
 
   NormalTextureInfo()
       : index(-1),
@@ -782,7 +788,7 @@ struct NormalTextureInfo {
 };
 
 enum class OcclusionTextureInfoDefinedFlags : defined_flags_t {
-  kNone  = 0,
+  kNone     = 0,
   kTexCoord = 1 << 0,
   kStrength = 1 << 1
 };
@@ -801,7 +807,9 @@ struct OcclusionTextureInfo {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(OcclusionTextureInfoDefinedFlags::kNone)};
+  defined_flags_t defined_flags{
+    static_cast<defined_flags_t>(OcclusionTextureInfoDefinedFlags::kNone)
+  };
 
   OcclusionTextureInfo()
       : index(-1),
@@ -813,7 +821,7 @@ struct OcclusionTextureInfo {
 };
 
 enum class PbrMetallicRoughnessDefinedFlags : defined_flags_t {
-  kNone         = 0,
+  kNone            = 0,
   kBaseColorFactor = 1 << 0,
   kMetallicFactor  = 1 << 1,
   kRoughnessFactor = 1 << 2
@@ -834,7 +842,9 @@ struct PbrMetallicRoughness {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(PbrMetallicRoughnessDefinedFlags::kNone)};
+  defined_flags_t defined_flags{
+    static_cast<defined_flags_t>(PbrMetallicRoughnessDefinedFlags::kNone)
+  };
 
   PbrMetallicRoughness()
       :
@@ -845,7 +855,7 @@ struct PbrMetallicRoughness {
 };
 
 enum class MaterialDefinedFlags : defined_flags_t {
-  kNone        = 0,
+  kNone           = 0,
   kEmissiveFactor = 1 << 0,
   kAlphaMode      = 1 << 1,
   kAlphaCutoff    = 1 << 2,
@@ -881,7 +891,9 @@ struct Material {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(MaterialDefinedFlags::kNone)};
+  defined_flags_t defined_flags{
+    static_cast<defined_flags_t>(MaterialDefinedFlags::kNone)
+  };
 
   Material() : alphaMode("OPAQUE"), alphaCutoff(0.5), doubleSided(false) {}
   DEFAULT_METHODS(Material)
@@ -1109,7 +1121,7 @@ struct Mesh {
 };
 
 enum class NodeDefinedFlags : defined_flags_t {
-  kNone     = 0,
+  kNone        = 0,
   kMatrix      = 1 << 0,
   kTranslation = 1 << 1,
   kRotation    = 1 << 2,
@@ -1142,7 +1154,9 @@ class Node {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(NodeDefinedFlags::kNone)};
+  defined_flags_t defined_flags{
+    static_cast<defined_flags_t>(NodeDefinedFlags::kNone)
+  };
 };
 
 struct Buffer {
@@ -1431,7 +1445,8 @@ class TinyGLTF {
   ///
   bool LoadASCIIFromFile(Model *model, std::string *err, std::string *warn,
                          const std::string &filename,
-                         unsigned int check_sections = REQUIRE_VERSION, bool required_properties = true);
+                         unsigned int check_sections = REQUIRE_VERSION,
+                         bool required_properties = true);
 
   ///
   /// Loads glTF ASCII asset from string(memory).
@@ -1444,7 +1459,8 @@ class TinyGLTF {
   bool LoadASCIIFromString(Model *model, std::string *err, std::string *warn,
                            const char *str, const unsigned int length,
                            const std::string &base_dir,
-                           unsigned int check_sections = REQUIRE_VERSION, bool required_properties = true);
+                           unsigned int check_sections = REQUIRE_VERSION,
+                           bool required_properties = true);
 
   ///
   /// Loads glTF binary asset from a file.
@@ -1453,7 +1469,8 @@ class TinyGLTF {
   ///
   bool LoadBinaryFromFile(Model *model, std::string *err, std::string *warn,
                           const std::string &filename,
-                          unsigned int check_sections = REQUIRE_VERSION, bool required_properties = true);
+                          unsigned int check_sections = REQUIRE_VERSION,
+                          bool required_properties = true);
 
   ///
   /// Loads glTF binary asset from memory.
@@ -1467,7 +1484,8 @@ class TinyGLTF {
                             const unsigned char *bytes,
                             const unsigned int length,
                             const std::string &base_dir = "",
-                            unsigned int check_sections = REQUIRE_VERSION, bool required_properties = true);
+                            unsigned int check_sections = REQUIRE_VERSION,
+                            bool required_properties = true);
 
   ///
   /// Write glTF to stream, buffers and images will be embedded
@@ -1554,7 +1572,8 @@ class TinyGLTF {
   ///
   bool LoadFromString(Model *model, std::string *err, std::string *warn,
                       const char *str, const unsigned int length,
-                      const std::string &base_dir, unsigned int check_sections, bool required_properties = true);
+                      const std::string &base_dir, unsigned int check_sections,
+                      bool required_properties = true);
 
   const unsigned char *bin_data_ = nullptr;
   size_t bin_size_ = 0;
@@ -3945,7 +3964,8 @@ static bool ParseImage(Image *image, const int image_idx, std::string *err,
                        const std::string &basedir, FsCallbacks *fs,
                        const URICallbacks *uri_cb,
                        LoadImageDataFunction *LoadImageData = nullptr,
-                       void *load_image_user_data = nullptr, bool required_properties = true) {
+                       void *load_image_user_data = nullptr,
+                       bool required_properties = true) {
   // A glTF image must either reference a bufferView or an image uri
 
   // schema says oneOf [`bufferView`, `uri`]
@@ -4141,18 +4161,21 @@ static bool ParseTexture(Texture *texture, std::string *err, const json &o,
 
 static bool ParseTextureInfo(
     TextureInfo *texinfo, std::string *err, const json &o,
-    bool store_original_json_for_extras_and_extensions, bool required_properties = true) {
+    bool store_original_json_for_extras_and_extensions,
+    bool required_properties = true) {
   if (texinfo == nullptr) {
     return false;
   }
 
   if (!ParseIntegerProperty(&texinfo->index, err, o, "index",
-                             required_properties ? true : false, "TextureInfo") && required_properties) {
+                             required_properties ? true : false, "TextureInfo")
+      && required_properties) {
     return false;
   }
 
   if (ParseIntegerProperty(&texinfo->texCoord, err, o, "texCoord", false)) {
-    texinfo->defined_flags |= static_cast<defined_flags_t>(TextureInfoDefinedFlags::kTexCoord);
+    texinfo->defined_flags |=
+      static_cast<defined_flags_t>(TextureInfoDefinedFlags::kTexCoord);
   }
 
   ParseExtensionsProperty(&texinfo->extensions, err, o);
@@ -4178,21 +4201,25 @@ static bool ParseTextureInfo(
 
 static bool ParseNormalTextureInfo(
     NormalTextureInfo *texinfo, std::string *err, const json &o,
-    bool store_original_json_for_extras_and_extensions, bool required_properties = true) {
+    bool store_original_json_for_extras_and_extensions,
+    bool required_properties = true) {
   if (texinfo == nullptr) {
     return false;
   }
 
   if (!ParseIntegerProperty(&texinfo->index, err, o, "index",
-                            /* required */ required_properties ? true : false, "NormalTextureInfo") && required_properties) {
+                            required_properties ? true : false, "NormalTextureInfo")
+      && required_properties) {
     return false;
   }
 
   if (ParseIntegerProperty(&texinfo->texCoord, err, o, "texCoord", false)) {
-    texinfo->defined_flags |= static_cast<defined_flags_t>(NormalTextureInfoDefinedFlags::kTexCoord);
+    texinfo->defined_flags |=
+      static_cast<defined_flags_t>(NormalTextureInfoDefinedFlags::kTexCoord);
   }
   if (ParseNumberProperty(&texinfo->scale, err, o, "scale", false)) {
-    texinfo->defined_flags |= static_cast<defined_flags_t>(NormalTextureInfoDefinedFlags::kScale);
+    texinfo->defined_flags |=
+      static_cast<defined_flags_t>(NormalTextureInfoDefinedFlags::kScale);
   }
 
   ParseExtensionsProperty(&texinfo->extensions, err, o);
@@ -4218,21 +4245,25 @@ static bool ParseNormalTextureInfo(
 
 static bool ParseOcclusionTextureInfo(
     OcclusionTextureInfo *texinfo, std::string *err, const json &o,
-    bool store_original_json_for_extras_and_extensions, bool required_properties = true) {
+    bool store_original_json_for_extras_and_extensions,
+    bool required_properties = true) {
   if (texinfo == nullptr) {
     return false;
   }
 
   if (!ParseIntegerProperty(&texinfo->index, err, o, "index",
-                            /* required */ required_properties ? true : false, "OcclusionTextureInfo") && required_properties) {
+                            required_properties ? true : false, "OcclusionTextureInfo")
+      && required_properties) {
     return false;
   }
 
   if (ParseIntegerProperty(&texinfo->texCoord, err, o, "texCoord", false)) {
-    texinfo->defined_flags |= static_cast<defined_flags_t>(OcclusionTextureInfoDefinedFlags::kTexCoord);
+    texinfo->defined_flags |=
+      static_cast<defined_flags_t>(OcclusionTextureInfoDefinedFlags::kTexCoord);
   }
   if (ParseNumberProperty(&texinfo->strength, err, o, "strength", false)) {
-    texinfo->defined_flags |= static_cast<defined_flags_t>(OcclusionTextureInfoDefinedFlags::kStrength);
+    texinfo->defined_flags |=
+      static_cast<defined_flags_t>(OcclusionTextureInfoDefinedFlags::kStrength);
   }
 
   ParseExtensionsProperty(&texinfo->extensions, err, o);
@@ -4820,7 +4851,8 @@ static bool ParseDracoExtension(Primitive *primitive, Model *model,
 
 static bool ParsePrimitive(Primitive *primitive, Model *model, std::string *err,
                            const json &o,
-                           bool store_original_json_for_extras_and_extensions, bool required_properties = true) {
+                           bool store_original_json_for_extras_and_extensions,
+                           bool required_properties = true) {
   int material = -1;
   ParseIntegerProperty(&material, err, o, "material", false);
   primitive->material = material;
@@ -4833,7 +4865,8 @@ static bool ParsePrimitive(Primitive *primitive, Model *model, std::string *err,
   ParseIntegerProperty(&indices, err, o, "indices", false);
   primitive->indices = indices;
   if (!ParseStringIntegerProperty(&primitive->attributes, err, o, "attributes",
-                                  required_properties ? true : false, "Primitive") && required_properties) {
+                                  required_properties ? true : false, "Primitive")
+      && required_properties) {
     return false;
   }
 
@@ -4893,7 +4926,8 @@ static bool ParsePrimitive(Primitive *primitive, Model *model, std::string *err,
 }
 
 static bool ParseMesh(Mesh *mesh, Model *model, std::string *err, const json &o,
-                      bool store_original_json_for_extras_and_extensions, bool required_properties = true) {
+                      bool store_original_json_for_extras_and_extensions,
+                      bool required_properties = true) {
   ParseStringProperty(&mesh->name, err, o, "name", false);
 
   mesh->primitives.clear();
@@ -4905,7 +4939,8 @@ static bool ParseMesh(Mesh *mesh, Model *model, std::string *err, const json &o,
          i != primEnd; ++i) {
       Primitive primitive;
       if (ParsePrimitive(&primitive, model, err, *i,
-                         store_original_json_for_extras_and_extensions, required_properties)) {
+                         store_original_json_for_extras_and_extensions,
+                         required_properties)) {
         // Only add the primitive if the parsing succeeds.
         mesh->primitives.emplace_back(std::move(primitive));
       }
@@ -4995,7 +5030,8 @@ static bool ParseNode(Node *node, std::string *err, const json &o,
 
 static bool ParsePbrMetallicRoughness(
     PbrMetallicRoughness *pbr, std::string *err, const json &o,
-    bool store_original_json_for_extras_and_extensions, bool required_properties = true) {
+    bool store_original_json_for_extras_and_extensions,
+    bool required_properties = true) {
   if (pbr == nullptr) {
     return false;
   }
@@ -5013,14 +5049,16 @@ static bool ParsePbrMetallicRoughness(
       return false;
     }
     pbr->baseColorFactor = baseColorFactor;
-    pbr->defined_flags |= static_cast<defined_flags_t>(PbrMetallicRoughnessDefinedFlags::kBaseColorFactor);
+    pbr->defined_flags |=
+      static_cast<defined_flags_t>(PbrMetallicRoughnessDefinedFlags::kBaseColorFactor);
   }
 
   {
     json_const_iterator it;
     if (FindMember(o, "baseColorTexture", it)) {
       ParseTextureInfo(&pbr->baseColorTexture, err, GetValue(it),
-                       store_original_json_for_extras_and_extensions, required_properties);
+                       store_original_json_for_extras_and_extensions,
+                       required_properties);
     }
   }
 
@@ -5028,15 +5066,18 @@ static bool ParsePbrMetallicRoughness(
     json_const_iterator it;
     if (FindMember(o, "metallicRoughnessTexture", it)) {
       ParseTextureInfo(&pbr->metallicRoughnessTexture, err, GetValue(it),
-                       store_original_json_for_extras_and_extensions, required_properties);
+                       store_original_json_for_extras_and_extensions,
+                       required_properties);
     }
   }
 
   if (ParseNumberProperty(&pbr->metallicFactor, err, o, "metallicFactor", false)) {
-    pbr->defined_flags |= static_cast<defined_flags_t>(PbrMetallicRoughnessDefinedFlags::kMetallicFactor);
+    pbr->defined_flags |=
+      static_cast<defined_flags_t>(PbrMetallicRoughnessDefinedFlags::kMetallicFactor);
   }
   if (ParseNumberProperty(&pbr->roughnessFactor, err, o, "roughnessFactor", false)) {
-    pbr->defined_flags |= static_cast<defined_flags_t>(PbrMetallicRoughnessDefinedFlags::kRoughnessFactor);
+    pbr->defined_flags |=
+      static_cast<defined_flags_t>(PbrMetallicRoughnessDefinedFlags::kRoughnessFactor);
   }
 
   ParseExtensionsProperty(&pbr->extensions, err, o);
@@ -5061,7 +5102,8 @@ static bool ParsePbrMetallicRoughness(
 }
 
 static bool ParseMaterial(Material *material, std::string *err, const json &o,
-                          bool store_original_json_for_extras_and_extensions, bool required_properties = true) {
+                          bool store_original_json_for_extras_and_extensions,
+                          bool required_properties = true) {
   ParseStringProperty(&material->name, err, o, "name", /* required */ false);
 
   if (ParseNumberArrayProperty(&material->emissiveFactor, err, o,
@@ -5076,7 +5118,8 @@ static bool ParseMaterial(Material *material, std::string *err, const json &o,
       }
       return false;
     }
-    material->defined_flags |= static_cast<defined_flags_t>(MaterialDefinedFlags::kEmissiveFactor);
+    material->defined_flags |=
+      static_cast<defined_flags_t>(MaterialDefinedFlags::kEmissiveFactor);
   } else {
     // fill with default values
     material->emissiveFactor = {0.0, 0.0, 0.0};
@@ -5084,15 +5127,18 @@ static bool ParseMaterial(Material *material, std::string *err, const json &o,
 
   if (ParseStringProperty(&material->alphaMode, err, o, "alphaMode",
                       /* required */ false)) {
-    material->defined_flags |= static_cast<defined_flags_t>(MaterialDefinedFlags::kAlphaMode);
+    material->defined_flags |=
+      static_cast<defined_flags_t>(MaterialDefinedFlags::kAlphaMode);
   }
   if (ParseNumberProperty(&material->alphaCutoff, err, o, "alphaCutoff",
                       /* required */ false)) {
-    material->defined_flags |= static_cast<defined_flags_t>(MaterialDefinedFlags::kAlphaCutoff);
+    material->defined_flags |=
+      static_cast<defined_flags_t>(MaterialDefinedFlags::kAlphaCutoff);
   }
   if (ParseBooleanProperty(&material->doubleSided, err, o, "doubleSided",
                        /* required */ false)) {
-    material->defined_flags |= static_cast<defined_flags_t>(MaterialDefinedFlags::kDoubleSided);
+    material->defined_flags |=
+      static_cast<defined_flags_t>(MaterialDefinedFlags::kDoubleSided);
 }
 
   {
@@ -5100,16 +5146,20 @@ static bool ParseMaterial(Material *material, std::string *err, const json &o,
     if (FindMember(o, "pbrMetallicRoughness", it)) {
       ParsePbrMetallicRoughness(&material->pbrMetallicRoughness, err,
                                 GetValue(it),
-                                store_original_json_for_extras_and_extensions, required_properties);
+                                store_original_json_for_extras_and_extensions,
+                                required_properties);
     }
   }
 
   {
     json_const_iterator it;
     if (FindMember(o, "normalTexture", it)) {
-      // TODO(vsatish)(p1): There seems to be an inherent bug in tinygltf's parsing routine: if an arbitrarily nested required property of an optional property DNE, parsing will still succeed
+      // TODO(vsatish)(p1): There seems to be an inherent bug in tinygltf's
+      // parsing routine: if an arbitrarily nested required property of an
+      // optional property DNE, parsing will still succeed
       ParseNormalTextureInfo(&material->normalTexture, err, GetValue(it),
-                             store_original_json_for_extras_and_extensions, required_properties);
+                             store_original_json_for_extras_and_extensions,
+                             required_properties);
     }
   }
 
@@ -5117,7 +5167,8 @@ static bool ParseMaterial(Material *material, std::string *err, const json &o,
     json_const_iterator it;
     if (FindMember(o, "occlusionTexture", it)) {
       ParseOcclusionTextureInfo(&material->occlusionTexture, err, GetValue(it),
-                                store_original_json_for_extras_and_extensions, required_properties);
+                                store_original_json_for_extras_and_extensions,
+                                required_properties);
     }
   }
 
@@ -5125,7 +5176,8 @@ static bool ParseMaterial(Material *material, std::string *err, const json &o,
     json_const_iterator it;
     if (FindMember(o, "emissiveTexture", it)) {
       ParseTextureInfo(&material->emissiveTexture, err, GetValue(it),
-                       store_original_json_for_extras_and_extensions, required_properties);
+                       store_original_json_for_extras_and_extensions,
+                       required_properties);
     }
   }
 
@@ -5364,16 +5416,20 @@ static bool ParseSampler(Sampler *sampler, std::string *err, const json &o,
   int wrapT = TINYGLTF_TEXTURE_WRAP_REPEAT;
   // int wrapR = TINYGLTF_TEXTURE_WRAP_REPEAT;
   if (ParseIntegerProperty(&minFilter, err, o, "minFilter", false)) {
-    sampler->defined_flags |= static_cast<defined_flags_t>(SamplerDefinedFlags::kMinFilter);
+    sampler->defined_flags |=
+      static_cast<defined_flags_t>(SamplerDefinedFlags::kMinFilter);
   }
   if (ParseIntegerProperty(&magFilter, err, o, "magFilter", false)) {
-    sampler->defined_flags |= static_cast<defined_flags_t>(SamplerDefinedFlags::kMagFilter);
+    sampler->defined_flags |=
+      static_cast<defined_flags_t>(SamplerDefinedFlags::kMagFilter);
   }
   if (ParseIntegerProperty(&wrapS, err, o, "wrapS", false)) {
-    sampler->defined_flags |= static_cast<defined_flags_t>(SamplerDefinedFlags::kWrapS);
+    sampler->defined_flags |=
+      static_cast<defined_flags_t>(SamplerDefinedFlags::kWrapS);
   }
   if (ParseIntegerProperty(&wrapT, err, o, "wrapT", false)) {
-    sampler->defined_flags |= static_cast<defined_flags_t>(SamplerDefinedFlags::kWrapT);
+    sampler->defined_flags |=
+      static_cast<defined_flags_t>(SamplerDefinedFlags::kWrapT);
   }
   // ParseIntegerProperty(&wrapR, err, o, "wrapR", false);  // tinygltf
   // extension
@@ -6000,7 +6056,8 @@ bool TinyGLTF::LoadFromString(Model *model, std::string *err, std::string *warn,
       }
       Mesh mesh;
       if (!ParseMesh(&mesh, model, err, o,
-                     store_original_json_for_extras_and_extensions_, required_properties)) {
+                     store_original_json_for_extras_and_extensions_,
+                     required_properties)) {
         return false;
       }
 
@@ -6162,7 +6219,8 @@ bool TinyGLTF::LoadFromString(Model *model, std::string *err, std::string *warn,
       ParseStringProperty(&material.name, err, o, "name", false);
 
       if (!ParseMaterial(&material, err, o,
-                         store_original_json_for_extras_and_extensions_, required_properties)) {
+                         store_original_json_for_extras_and_extensions_,
+                         required_properties)) {
         return false;
       }
 
@@ -6442,7 +6500,8 @@ bool TinyGLTF::LoadASCIIFromString(Model *model, std::string *err,
 
 bool TinyGLTF::LoadASCIIFromFile(Model *model, std::string *err,
                                  std::string *warn, const std::string &filename,
-                                 unsigned int check_sections, bool required_properties) {
+                                 unsigned int check_sections,
+                                 bool required_properties) {
   std::stringstream ss;
 
   if (fs.ReadWholeFile == nullptr) {
@@ -6478,7 +6537,8 @@ bool TinyGLTF::LoadASCIIFromFile(Model *model, std::string *err,
 
   bool ret = LoadASCIIFromString(
       model, err, warn, reinterpret_cast<const char *>(&data.at(0)),
-      static_cast<unsigned int>(data.size()), basedir, check_sections, required_properties);
+      static_cast<unsigned int>(data.size()), basedir, check_sections,
+      required_properties);
 
   return ret;
 }
@@ -6488,7 +6548,8 @@ bool TinyGLTF::LoadBinaryFromMemory(Model *model, std::string *err,
                                     const unsigned char *bytes,
                                     unsigned int size,
                                     const std::string &base_dir,
-                                    unsigned int check_sections, bool required_properties) {
+                                    unsigned int check_sections,
+                                    bool required_properties) {
   if (size < 20) {
     if (err) {
       (*err) = "Too short data size for glTF Binary.";
@@ -6626,7 +6687,8 @@ bool TinyGLTF::LoadBinaryFromMemory(Model *model, std::string *err,
 
   bool ret = LoadFromString(model, err, warn,
                             reinterpret_cast<const char *>(&bytes[20]),
-                            chunk0_length, base_dir, check_sections, required_properties);
+                            chunk0_length, base_dir, check_sections,
+                            required_properties);
   if (!ret) {
     return ret;
   }
@@ -6637,7 +6699,8 @@ bool TinyGLTF::LoadBinaryFromMemory(Model *model, std::string *err,
 bool TinyGLTF::LoadBinaryFromFile(Model *model, std::string *err,
                                   std::string *warn,
                                   const std::string &filename,
-                                  unsigned int check_sections, bool required_properties) {
+                                  unsigned int check_sections,
+                                  bool required_properties) {
   std::stringstream ss;
 
   if (fs.ReadWholeFile == nullptr) {
