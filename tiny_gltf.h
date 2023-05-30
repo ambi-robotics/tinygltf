@@ -619,7 +619,7 @@ struct Skin {
 
 using defined_flags_t = unsigned int;  // >= 16 bits
 enum class SamplerDefinedFlags : defined_flags_t {
-  kDefault   = 0,
+  kNone   = 0,
   kMinFilter = 1 << 0,
   kMagFilter = 1 << 1,
   kWrapS     = 1 << 2,
@@ -652,7 +652,7 @@ struct Sampler {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(SamplerDefinedFlags::kDefault)};
+  defined_flags_t defined_flags{static_cast<defined_flags_t>(SamplerDefinedFlags::kNone)};
 
   Sampler()
       : minFilter(-1),
@@ -724,7 +724,7 @@ struct Texture {
 };
 
 enum class TextureInfoDefinedFlags : defined_flags_t {
-  kDefault  = 0,
+  kNone  = 0,
   kTexCoord = 1 << 0
 };
 
@@ -740,7 +740,7 @@ struct TextureInfo {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(TextureInfoDefinedFlags::kDefault)};
+  defined_flags_t defined_flags{static_cast<defined_flags_t>(TextureInfoDefinedFlags::kNone)};
 
   TextureInfo()
       : index(-1),
@@ -751,7 +751,7 @@ struct TextureInfo {
 };
 
 enum class NormalTextureInfoDefinedFlags : defined_flags_t {
-  kDefault  = 0,
+  kNone  = 0,
   kTexCoord = 1 << 0,
   kScale    = 1 << 1
 };
@@ -770,7 +770,7 @@ struct NormalTextureInfo {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(NormalTextureInfoDefinedFlags::kDefault)};
+  defined_flags_t defined_flags{static_cast<defined_flags_t>(NormalTextureInfoDefinedFlags::kNone)};
 
   NormalTextureInfo()
       : index(-1),
@@ -782,7 +782,7 @@ struct NormalTextureInfo {
 };
 
 enum class OcclusionTextureInfoDefinedFlags : defined_flags_t {
-  kDefault  = 0,
+  kNone  = 0,
   kTexCoord = 1 << 0,
   kStrength = 1 << 1
 };
@@ -801,7 +801,7 @@ struct OcclusionTextureInfo {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(OcclusionTextureInfoDefinedFlags::kDefault)};
+  defined_flags_t defined_flags{static_cast<defined_flags_t>(OcclusionTextureInfoDefinedFlags::kNone)};
 
   OcclusionTextureInfo()
       : index(-1),
@@ -813,7 +813,7 @@ struct OcclusionTextureInfo {
 };
 
 enum class PbrMetallicRoughnessDefinedFlags : defined_flags_t {
-  kDefault         = 0,
+  kNone         = 0,
   kBaseColorFactor = 1 << 0,
   kMetallicFactor  = 1 << 1,
   kRoughnessFactor = 1 << 2
@@ -834,7 +834,7 @@ struct PbrMetallicRoughness {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(PbrMetallicRoughnessDefinedFlags::kDefault)};
+  defined_flags_t defined_flags{static_cast<defined_flags_t>(PbrMetallicRoughnessDefinedFlags::kNone)};
 
   PbrMetallicRoughness()
       :
@@ -845,7 +845,7 @@ struct PbrMetallicRoughness {
 };
 
 enum class MaterialDefinedFlags : defined_flags_t {
-  kDefault        = 0,
+  kNone        = 0,
   kEmissiveFactor = 1 << 0,
   kAlphaMode      = 1 << 1,
   kAlphaCutoff    = 1 << 2,
@@ -881,7 +881,7 @@ struct Material {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(MaterialDefinedFlags::kDefault)};
+  defined_flags_t defined_flags{static_cast<defined_flags_t>(MaterialDefinedFlags::kNone)};
 
   Material() : alphaMode("OPAQUE"), alphaCutoff(0.5), doubleSided(false) {}
   DEFAULT_METHODS(Material)
@@ -1109,7 +1109,7 @@ struct Mesh {
 };
 
 enum class NodeDefinedFlags : defined_flags_t {
-  kDefault     = 0,
+  kNone     = 0,
   kMatrix      = 1 << 0,
   kTranslation = 1 << 1,
   kRotation    = 1 << 2,
@@ -1142,7 +1142,7 @@ class Node {
   std::string extras_json_string;
   std::string extensions_json_string;
 
-  defined_flags_t defined_flags{static_cast<defined_flags_t>(NodeDefinedFlags::kDefault)};
+  defined_flags_t defined_flags{static_cast<defined_flags_t>(NodeDefinedFlags::kNone)};
 };
 
 struct Buffer {
@@ -1431,7 +1431,7 @@ class TinyGLTF {
   ///
   bool LoadASCIIFromFile(Model *model, std::string *err, std::string *warn,
                          const std::string &filename,
-                         unsigned int check_sections = REQUIRE_VERSION);
+                         unsigned int check_sections = REQUIRE_VERSION, bool required_properties = true);
 
   ///
   /// Loads glTF ASCII asset from string(memory).
@@ -1453,7 +1453,7 @@ class TinyGLTF {
   ///
   bool LoadBinaryFromFile(Model *model, std::string *err, std::string *warn,
                           const std::string &filename,
-                          unsigned int check_sections = REQUIRE_VERSION);
+                          unsigned int check_sections = REQUIRE_VERSION, bool required_properties = true);
 
   ///
   /// Loads glTF binary asset from memory.
@@ -1467,7 +1467,7 @@ class TinyGLTF {
                             const unsigned char *bytes,
                             const unsigned int length,
                             const std::string &base_dir = "",
-                            unsigned int check_sections = REQUIRE_VERSION);
+                            unsigned int check_sections = REQUIRE_VERSION, bool required_properties = true);
 
   ///
   /// Write glTF to stream, buffers and images will be embedded
@@ -6442,7 +6442,7 @@ bool TinyGLTF::LoadASCIIFromString(Model *model, std::string *err,
 
 bool TinyGLTF::LoadASCIIFromFile(Model *model, std::string *err,
                                  std::string *warn, const std::string &filename,
-                                 unsigned int check_sections) {
+                                 unsigned int check_sections, bool required_properties) {
   std::stringstream ss;
 
   if (fs.ReadWholeFile == nullptr) {
@@ -6478,7 +6478,7 @@ bool TinyGLTF::LoadASCIIFromFile(Model *model, std::string *err,
 
   bool ret = LoadASCIIFromString(
       model, err, warn, reinterpret_cast<const char *>(&data.at(0)),
-      static_cast<unsigned int>(data.size()), basedir, check_sections);
+      static_cast<unsigned int>(data.size()), basedir, check_sections, required_properties);
 
   return ret;
 }
@@ -6488,7 +6488,7 @@ bool TinyGLTF::LoadBinaryFromMemory(Model *model, std::string *err,
                                     const unsigned char *bytes,
                                     unsigned int size,
                                     const std::string &base_dir,
-                                    unsigned int check_sections) {
+                                    unsigned int check_sections, bool required_properties) {
   if (size < 20) {
     if (err) {
       (*err) = "Too short data size for glTF Binary.";
@@ -6626,7 +6626,7 @@ bool TinyGLTF::LoadBinaryFromMemory(Model *model, std::string *err,
 
   bool ret = LoadFromString(model, err, warn,
                             reinterpret_cast<const char *>(&bytes[20]),
-                            chunk0_length, base_dir, check_sections);
+                            chunk0_length, base_dir, check_sections, required_properties);
   if (!ret) {
     return ret;
   }
@@ -6637,7 +6637,7 @@ bool TinyGLTF::LoadBinaryFromMemory(Model *model, std::string *err,
 bool TinyGLTF::LoadBinaryFromFile(Model *model, std::string *err,
                                   std::string *warn,
                                   const std::string &filename,
-                                  unsigned int check_sections) {
+                                  unsigned int check_sections, bool required_properties) {
   std::stringstream ss;
 
   if (fs.ReadWholeFile == nullptr) {
@@ -6665,7 +6665,7 @@ bool TinyGLTF::LoadBinaryFromFile(Model *model, std::string *err,
 
   bool ret = LoadBinaryFromMemory(model, err, warn, &data.at(0),
                                   static_cast<unsigned int>(data.size()),
-                                  basedir, check_sections);
+                                  basedir, check_sections, required_properties);
 
   return ret;
 }
