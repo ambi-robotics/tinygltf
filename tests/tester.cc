@@ -718,3 +718,44 @@ TEST_CASE("serialize-image-failure", "[issue-394]") {
   REQUIRE(false == result);
   REQUIRE(os.str().size() == 0);
 }
+
+TEST_CASE("defined-flags", "[parse]") {
+  tinygltf::Model model;
+  tinygltf::TinyGLTF ctx;
+  std::string err;
+  std::string warn;
+
+  bool ret = ctx.LoadASCIIFromFile(
+              &model, &err, &warn, "../models/CubeSamplerDefaults/Cube.gltf");
+  if (!err.empty()) {
+    std::cerr << err << std::endl;
+  }
+  REQUIRE(true == ret);
+
+  // Ambiguous as to whether or not this was explicitly set or default-filled
+  REQUIRE(model.samplers[0].wrapS == 10497);
+
+  // Confirm explicitly set
+  REQUIRE((
+    model.samplers[0].defined_flags
+      & static_cast<tinygltf::defined_flags_t>(tinygltf::SamplerDefinedFlags::kWrapS)
+  ));
+}
+
+TEST_CASE("required-properties", "[parse]") {
+  tinygltf::Model model;
+  tinygltf::TinyGLTF ctx;
+  std::string err;
+  std::string warn;
+
+  // Parsing will fail with required_properties=true (default)
+  bool ret = ctx.LoadASCIIFromFile(
+              &model, &err, &warn, "../models/CubePartial/Cube.gltf");
+  REQUIRE(false == ret);
+
+  // Parsing should succeed
+  ret = ctx.LoadASCIIFromFile(
+              &model, &err, &warn, "../models/CubePartial/Cube.gltf",
+              tinygltf::REQUIRE_VERSION, /*required_properties*/ false);
+  REQUIRE(true == ret);
+}

@@ -4943,8 +4943,15 @@ static bool ParseMesh(Mesh *mesh, Model *model, std::string *err, const json &o,
                          required_properties)) {
         // Only add the primitive if the parsing succeeds.
         mesh->primitives.emplace_back(std::move(primitive));
+      } else {
+        return false;
       }
     }
+  }
+
+  if (mesh->primitives.size() == 0) {
+    // Size must be [1-*] https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-mesh
+    return false;
   }
 
   // Should probably check if has targets and if dimensions fit
@@ -5154,9 +5161,6 @@ static bool ParseMaterial(Material *material, std::string *err, const json &o,
   {
     json_const_iterator it;
     if (FindMember(o, "normalTexture", it)) {
-      // TODO(vsatish)(p1): There seems to be an inherent bug in tinygltf's
-      // parsing routine: if an arbitrarily nested required property of an
-      // optional property DNE, parsing will still succeed
       ParseNormalTextureInfo(&material->normalTexture, err, GetValue(it),
                              store_original_json_for_extras_and_extensions,
                              required_properties);
