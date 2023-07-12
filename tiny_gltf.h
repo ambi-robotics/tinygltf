@@ -4949,7 +4949,7 @@ static bool ParseMesh(Mesh *mesh, Model *model, std::string *err, const json &o,
     }
   }
 
-  if (mesh->primitives.size() == 0) {
+  if (mesh->primitives.size() == 0 && required_properties) {
     // Size must be [1-*] https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#reference-mesh
     return false;
   }
